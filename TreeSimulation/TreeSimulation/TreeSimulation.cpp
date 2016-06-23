@@ -13,7 +13,23 @@ void cyllinder(float angle,int x,int y,int z,float radius,float height)
 	GLUquadricObj *quadratic;
 	quadratic=gluNewQuadric();
 	gluCylinder(quadratic,radius,radius*0.7,height,30,1);
+	glTranslatef(0.0,0.0,height);
+	if(height>0.0){
+		if(oddeven==0){
+			oddeven=1;
+			cyllinder(30.0,1.0,0.0,0.0,radius*0.7,height-1.5);
+			cyllinder(-30.0,1.0,0.0,0.0,radius*0.7,height-1.5);
+		}
+		else if(oddeven==1){
+			oddeven=0;
+			cyllinder(40.0,0.0,1.0,0.0,radius*0.7,height-1.5);
+			cyllinder(-40.0,0.0,1.0,0.0,radius*0.7,height-1.5);
+		}
+	}
+	glTranslatef(0.0,0.0,0.0-height);
 	glRotatef(0.0-angle,x,y,z);
+	
+
 }
 void display()
 {
