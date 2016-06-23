@@ -54,24 +54,25 @@ void display()
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.5273,0.8047,0.9766,1.0);
 	glLoadIdentity();
+	
 	glRotatef(90,1,0,0);
 	glRotatef(35.0,1,0,0);
 	glRotatef(theta[0],1.0,0.0,0.0);
 	glRotatef(theta[1],0.0,1.0,0.0);
 	glRotatef(theta[2],0.0,0.0,1.0);
-	glRotatef(35.0,0,1,0);
-	oddeven=0;
 	terrain();
-	size=18;
+	glRotatef(35.0,0,1,0);
+	
+	oddeven=0;
+	
+	if(size<18.0)
+		size+=0.05;
 	cyllinder(270.0,1.0,0.0,0.0,size/4.5,size);
 	glFlush();
 	glutSwapBuffers();
 }
 void spintree()
 {
-	theta[axis]+=3.0;
-	if(theta[axis]>360.0)
-		theta[axis]-=360;
 	glutPostRedisplay();
 }
 void mouse(int btn,int state,int x,int y)
