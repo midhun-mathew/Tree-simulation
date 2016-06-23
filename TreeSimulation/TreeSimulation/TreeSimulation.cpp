@@ -31,6 +31,24 @@ void cyllinder(float angle,int x,int y,int z,float radius,float height)
 	
 
 }
+void terrain()
+{
+	int i,j;
+	glColor3f(0.9539,0.8359,0.64843);
+	
+	for(i=-90;i<90;i+=10)
+		for(j=-50;j<70;j+=10)
+		{
+			glBegin(GL_POLYGON);
+			glVertex3f(i,0,j);
+			glVertex3f(i+10,0,j);
+			glVertex3f(i+10,0,j+10);
+			glVertex3f(i,0,j+10);
+			glEnd();
+		}
+	
+
+}
 void display()
 {
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
@@ -43,6 +61,7 @@ void display()
 	glRotatef(theta[2],0.0,0.0,1.0);
 	glRotatef(35.0,0,1,0);
 	oddeven=0;
+	terrain();
 	size=18;
 	cyllinder(270.0,1.0,0.0,0.0,size/4.5,size);
 	glFlush();
