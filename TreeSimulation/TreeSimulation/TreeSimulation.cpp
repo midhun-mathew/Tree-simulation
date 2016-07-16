@@ -10,7 +10,6 @@ void leaf()
 {
 	glTranslatef(0.0,2.5,0.0);
 	glRotatef(-40.0,1.0,0.0,0.0);
-	glClearColor(1.0,1.0,1.0,1.0);
 	glColor3f(0.0,0.4,0.0);
 	glBegin(GL_POLYGON);
 	glVertex3f(0.0,0.0,0.0);
@@ -128,28 +127,23 @@ void tree(float angle,int x,int y,int z,float radius,float height)
 			twig(-40.0,0.0,1.0,0.0,radius*0.7,height-1.5);
 		}
 	}
-	
 	glTranslatef(0.0,0.0,0.0-height);
 	glRotatef(0.0-angle,x,y,z);
-	
-
 }
 void terrain()
 {
 	int i,j;
 	glColor3f(0.9539,0.8359,0.64843);
 	glBegin(GL_QUADS);
-	for(i=-120;i<120;i+=10)
-		for(j=-50;j<70;j+=10)
+	for(i=-1000;i<1000;i+=10)
+		for(j=-1000;j<1000;j+=10)
 		{
 			glVertex3d(i,0,j);
 			glVertex3d(i+10,0,j);
 			glVertex3d(i+10,0,j+10);
 			glVertex3d(i,0,j+10);
-			
 		}
 	glEnd();
-
 }
 void display()
 {
@@ -161,9 +155,7 @@ void display()
 	
 	terrain();
 	glRotatef(35.0,0,1,0);
-	//glRotatef(theta[0],1.0,0.0,0.0);
-	//glRotatef(theta[1],0.0,1.0,0.0);
-	//glRotatef(theta[2],0.0,0.0,1.0);
+	
 	
 	oddeven=0;
 	tree(270.0,1.0,0.0,0.0,size/4.5,size);
