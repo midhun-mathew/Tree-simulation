@@ -277,7 +277,32 @@ void handleSpecialKeypress(int key,int x,int y)
 	}
 }
 
-
+void keyboard(unsigned char key,int x,int y)
+{
+	switch(key)
+	{
+		case '4'://viewer[0]-=10.0;
+				//viewer2[0]-=10.0;
+				viewer[0]=viewer[0]+10*cos((angle-90)*3.1428/180.0);
+				viewer[2]=viewer[2]+10*sin((angle-90)*3.1428/180.0);
+				viewer2[0]=viewer2[0]+10*cos((angle-90)*3.1428/180.0);
+				viewer2[2]=viewer2[2]+10*sin((angle-90)*3.1428/180.0);
+				break;
+		case '6'://viewer[0]+=10.0;
+				//viewer2[0]+=10.0;
+				viewer[0]=viewer[0]-10*cos((angle-90)*3.1428/180.0);
+				viewer[2]=viewer[2]-10*sin((angle-90)*3.1428/180.0);
+				viewer2[0]=viewer2[0]-10*cos((angle-90)*3.1428/180.0);
+				viewer2[2]=viewer2[2]-10*sin((angle-90)*3.1428/180.0);
+				break;
+		case '2':viewer[1]-=10.0;
+				viewer2[1]-=10.0;
+				break;
+		case '8':viewer[1]+=10.0;
+				viewer2[1]+=10.0;
+	}
+	display();
+}
 
 void myReshape(int w,int h)
 {
