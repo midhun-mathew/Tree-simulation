@@ -3,9 +3,13 @@
 #include<glut.h>
 #include<math.h>
 static GLfloat theta[]={270.0,0.0,0.0};
+GLdouble tree_positions[20][3]={0};
+float size1[10]={2,2,2,2,2,2,2,2,2,2};
 static GLint axis=1;
 int oddeven;
+GLint count=0;
 float size=1;
+GLdouble ox=0.0,oy=0.0,oz=0.0;
 void leaf()
 {
 	glTranslatef(0.0,2.5,0.0);
@@ -155,12 +159,25 @@ void display()
 	
 	terrain();
 	glRotatef(35.0,0,1,0);
-	
-	
+	glRotatef(270.0,1.0,0.0,0.0);
 	oddeven=0;
-	tree(270.0,1.0,0.0,0.0,size/4.5,size);
-	if(size<18.0)
-		size+=0.05;
+	glPushMatrix();
+	for(int i=0;i<count;i++)
+	{
+	
+		if(count>0)
+			glTranslatef(tree_positions[i][0],tree_positions[i][1],tree_positions[i][2]);
+		//glTranslatef(ox,oy,oz);
+		//printf("%d ",count);
+		if(size1[i]>5.0)
+			tree(0.0,1.0,0.0,0.0,size1[i]/4.5,size1[i]);
+		else
+			twig(0.0,1.0,0.0,0.0,size1[i]/4.5,size1[i]);
+		if(size1[i]<13.0)
+			size1[i]+=1.0;
+		glPopMatrix();
+
+	}
 	glFlush();
 	glutSwapBuffers();
 }
@@ -173,13 +190,25 @@ void spincube()
 }
 void mouse(int btn,int state,int x,int y)
 {
-	if(btn==GLUT_LEFT_BUTTON&&state==GLUT_DOWN)
-		axis=0;
-	if(btn==GLUT_MIDDLE_BUTTON&&state==GLUT_DOWN)
-		axis=1;
-	if(btn==GLUT_RIGHT_BUTTON&&state==GLUT_DOWN)
-		axis=2;
+	GLint viewport[4];
+	GLdouble modelview[16],projection[16];
+	GLfloat wx=x,wy,wz;
+	glGetIntegerv(GL_VIEWPORT,viewport);
+	y=viewport[3]-y;
+	wy=y;
+	glGetDoublev(GL_MODELVIEW_MATRIX,modelview);
+	glGetDoublev(GL_PROJECTION_MATRIX,projection);
+	glReadPixels(x,y,1,1,GL_DEPTH_COMPONENT,GL_FLOAT,&wz);
+	gluUnProject(wx,wy,wz,modelview,projection,viewport,&ox,&oy,&oz);
+	tree_positions[count][0]=ox;
+	tree_positions[count][1]=oy;
+	tree_positions[count][2]=oz;
+	printf("%lf %lf %lf\n%lf %lf %lf\n\n",ox,oy,oz,tree_positions[count-1][0],tree_positions[count-1][1],tree_positions[count-1][2]);
+	glutPostRedisplay();
+	
 
+	if(btn==GLUT_LEFT_BUTTON&&state==GLUT_DOWN)
+		count++;
 }
 void myReshape(int w,int h)
 {
