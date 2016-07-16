@@ -252,6 +252,33 @@ void mouse(int btn,int state,int x,int y)
 		axis=2;
 	
 }
+
+void handleSpecialKeypress(int key,int x,int y)
+{
+	switch(key)
+	{
+		case GLUT_KEY_LEFT :angle-=10.0;
+							viewer2[0]=viewer[0]+180*cos(angle*3.1428/180.0); //180 is height
+							viewer2[2]=viewer[2]+180*sin(angle*3.1428/180.0);
+							break;
+		case GLUT_KEY_RIGHT :angle+=10.0;
+							viewer2[0]=viewer[0]+180*cos(angle*3.1428/180.0);
+							viewer2[2]=viewer[2]+180*sin(angle*3.1428/180.0);
+							break;
+		case GLUT_KEY_UP :	viewer2[0]=viewer[0]+200*cos(angle*3.1428/180.0);
+							viewer2[2]=viewer[2]+200*sin(angle*3.1428/180.0);
+							viewer[0]=viewer[0]+20*cos(angle*3.1428/180.0);
+							viewer[2]=viewer[2]+20*sin(angle*3.1428/180.0);
+							break;
+		case GLUT_KEY_DOWN :viewer2[0]=viewer[0]+160*cos(angle*3.1428/180.0);
+							viewer2[2]=viewer[2]+160*sin(angle*3.1428/180.0);
+							viewer[0]=viewer[0]-20*cos(angle*3.1428/180.0);
+							viewer[2]=viewer[2]-20*sin(angle*3.1428/180.0);
+	}
+}
+
+
+
 void myReshape(int w,int h)
 {
 	
@@ -279,8 +306,8 @@ void main(int argc,char** argv)
 	glutReshapeFunc(myReshape);
 	glutDisplayFunc(display);
 	glutMouseFunc(mouse);
-//	glutKeyboardFunc(keyboard);
-//	glutSpecialFunc(handleSpecialKeypress);
+	glutKeyboardFunc(keyboard);
+	glutSpecialFunc(handleSpecialKeypress);
 	glutIdleFunc(spincube);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LIGHTING);
