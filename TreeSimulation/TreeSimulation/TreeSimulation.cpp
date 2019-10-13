@@ -19,6 +19,7 @@ float size=1;
 GLfloat x,y;
 float angle=-90;
 GLdouble ox=0.0,oy=0.0,oz=0.0;
+//Creating a leaf manually
 void leaf()
 {
 	
@@ -74,6 +75,7 @@ void leaf()
 	glFlush();
 	glTranslatef(0.0,-2.5,0.0);
 }
+//Combines a set of leaves to form a twig
 void twig(float angle,int x,int y,int z,float radius,float height)
 {
 	glRotatef(angle,x,y,z);
@@ -119,6 +121,8 @@ void twig(float angle,int x,int y,int z,float radius,float height)
 	glTranslatef(0.0,0.0,0.0-height);
 	glRotatef(0.0-angle,x,y,z);
 }
+
+//Combines several twigs to form a tree
 void tree(float angle,int x,int y,int z,float radius,float height)
 {
 	glRotatef(angle,x,y,z);
@@ -181,6 +185,7 @@ void terrain()
 		}
 	glEnd();
 }
+// Function to set the display properties
 void display()
 {
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
